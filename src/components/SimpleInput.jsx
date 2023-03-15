@@ -7,6 +7,12 @@ const SimpleInput = (props) => {
   const isNameInputValid = enteredName.trim() !== '';
   const isNameInputInvalid = !isNameInputValid && isNameInputTouched;
 
+  let isFormValid = false;
+
+  if (isNameInputValid) {
+    isFormValid = true;
+  }
+
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
   };
@@ -23,7 +29,6 @@ const SimpleInput = (props) => {
 
     console.log(`${enteredName} -> value from state`);
 
-    // nameInputRef.current.value = '' -> NOT IDEAL, DON'T MANIPULATE DOM STRAIGHT TROUGH VANILLA JS, LET THE REACT DO THE JOB
     setEnteredName('');
     setIsNameInputTouched(false);
   };
@@ -46,7 +51,7 @@ const SimpleInput = (props) => {
         {isNameInputInvalid && <p className='error-text'>Name is Required</p>}
       </div>
       <div className='form-actions'>
-        <button>Submit</button>
+        <button disabled={!isFormValid}>Submit</button>
       </div>
     </form>
   );
